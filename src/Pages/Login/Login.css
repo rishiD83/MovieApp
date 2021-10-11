@@ -1,0 +1,29 @@
+.container {
+  padding: 0;
+  margin: 0;
+}
+
+.loginContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.login {
+  margin: auto;
+  margin-top: 10%;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.MuiFormControl-root.MuiTextField-root {
+  margin: 10px 0 10px 0;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined {
+  margin: 30px;
+  border-radius: 0;
+}
+    
