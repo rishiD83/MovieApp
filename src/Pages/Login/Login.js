@@ -3,7 +3,11 @@ import { TextField } from "@material-ui/core";
 import "./Login.css";
 import { Button } from "@material-ui/core";
 function Login({ login, error }) {
-  const [details, setDetails] = useState({ name: "", id: "", password: "" });
+  const [details, setDetails] = useState({
+    name: "",
+    username: "",
+    password: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,8 +23,10 @@ function Login({ login, error }) {
             id="standard-basic"
             label="Username"
             variant="standard"
-            onChange={(e) => setDetails({ ...details, id: e.target.value })}
-            value={details.id}
+            onChange={(e) =>
+              setDetails({ ...details, username: e.target.value })
+            }
+            value={details.username}
           />{" "}
           <TextField
             id="outlined-password-input"

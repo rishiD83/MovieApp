@@ -43,7 +43,7 @@ function MovieList(props) {
             <div key={movie.title} className="listItem">
               <li className="movieName">{movie.title}</li>
               <div className="favContainer">
-                <Favourite />
+                <Favourite color="gray" />
               </div>
               <div className="count"></div>
             </div>
