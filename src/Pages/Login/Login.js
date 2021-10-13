@@ -19,6 +19,7 @@ function Login({ login, error }) {
       <div className="loginContainer">
         <div className="login">
           <h2>Login</h2>
+          {error !== "" ? <div className="error">{error}</div> : ""}
           <TextField
             id="standard-basic"
             label="Username"

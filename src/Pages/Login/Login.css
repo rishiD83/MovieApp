@@ -12,6 +12,7 @@
   margin: auto;
   margin-top: 10%;
   width: 30%;
+  max-width: 307px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,5 +28,5 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined {
   border-radius: 10px;
   font-family: inherit;
   color: #f8f8f8;
-  background-color:cadetblue
+  background-color: cadetblue;
 }

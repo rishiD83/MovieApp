@@ -39,6 +39,7 @@ function MovieList(props) {
     <>
       <div className="container">
         <div className="movieContainer">
+
           {movies.map((movie) => (
             <div key={movie.title} className="listItem">
               <li className="movieName">{movie.title}</li>
