@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import RouteComponent from "./Routes/Route";
+// import { Provider } from "react-redux";
+// import store from "./Redux/Store";
 
 function App(props) {
-
   return (
-    <div>
-      <RouteComponent />
-    </div>
+    // <Provider store={store}>
+      <div>
+        <RouteComponent />
+      </div>
+    // </Provider>
   );
 }
 

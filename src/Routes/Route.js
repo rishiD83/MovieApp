@@ -7,6 +7,7 @@ import { Button } from "@material-ui/core";
 function RouteComponent(props) {
   const [user, setUser] = useState({ name: "", username: "" });
   const [error, setError] = useState("");
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const users = [
     { name: "Arnold", username: "arnold", password: "arnold123" },
     { name: "John", username: "john", password: "john123" },
@@ -15,30 +16,57 @@ function RouteComponent(props) {
     { name: "Peter", username: "peter", password: "peter123" },
   ];
 
+  const saveUser = (user) => {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  };
+
+  const saveFavouriteNews = (items) => {
+    localStorage.setItem("favouriteMovies", JSON.stringify(items));
+  };
+
+  const getFavoriteMovie = (movie) => {
+    const newFavList = [...favoriteMovies, movie];
+    setFavoriteMovies(newFavList);
+    saveFavouriteNews(newFavList);
+  };
+
+  const removeFavoriteMovie = (url) => {
+    const newFavList = favoriteMovies.filter((item) => item !== url);
+    setFavoriteMovies(newFavList);
+    saveFavouriteNews(newFavList);
+  };
+
   const login = (details) => {
     users.map((user) =>
       user.username === details.username && user.password === details.password
         ? setUser({ name: user.name, username: details.username })
         : setError("Invalid Credentials")
     );
+    saveUser(details.username);
   };
   const logout = () => {
     setUser({ name: "", id: "" });
+    saveUser("");
     window.location.reload();
   };
 
-  console.log("Name:", user.name, "Username:", user.username);
+  console.log(localStorage.currentUser);
 
   return (
     <BrowserRouter>
       <div className="navigation">
-        <Button variant="outlined" onClick={logout}>
-          Logout
-        </Button>
+        {user.username !== "" && (
+          <Button variant="outlined" onClick={logout}>
+            Logout
+          </Button>
+        )}
       </div>
-      {/* <MovieList /> */}
       {user.username !== "" ? (
-        <MovieList />
+        <MovieList
+          sendFavoriteMovie={getFavoriteMovie}
+          favoriteMovies={favoriteMovies}
+          removeFavoriteMovie={removeFavoriteMovie}
+        />
       ) : (
         <Login login={login} error={error} />
       )}
