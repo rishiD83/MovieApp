@@ -42,7 +42,13 @@ function MovieList(props) {
           {movies.map((movie) => (
             <div key={movie.title} className="listItem">
               <li className="movieName">{movie.title}</li>
-              {props.favoriteMovies.includes(movie.title) ? (
+              <div
+                  className="favContainer"
+                  onClick={() => props.sendFavoriteMovie(movie.title)}
+                >
+                  <Favourite color="gray" />
+                </div>
+              {/* {props.favoriteMovies.movieName.includes(movie.title) ? (
                 <div
                   className="favContainer"
                   onClick={() => props.removeFavoriteMovie(movie.title)}
@@ -56,7 +62,7 @@ function MovieList(props) {
                 >
                   <Favourite color="gray" />
                 </div>
-              )}
+              )} */}
               <div className="count">{props.favoriteMovies.length}</div>
             </div>
           ))}
