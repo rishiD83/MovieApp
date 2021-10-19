@@ -7,10 +7,7 @@ import { Button } from "@material-ui/core";
 function RouteComponent(props) {
   const [user, setUser] = useState({ name: "", username: "" });
   const [error, setError] = useState("");
-  const [favoriteMovies, setFavoriteMovies] = useState({
-    movieName: "",
-    likes: [],
-  });
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const users = [
     { name: "Arnold", username: "arnold", password: "arnold123" },
     { name: "John", username: "john", password: "john123" },
@@ -28,17 +25,16 @@ function RouteComponent(props) {
   };
 
   const getFavoriteMovie = (movie) => {
-    const newLikes = [user.username];
-    setFavoriteMovies({
-      ...favoriteMovies,
-      movieName: [...favoriteMovies.movieName, movie],
-      likes: [...favoriteMovies.likes, newLikes],
-    });
-    saveFavoriteMovies(favoriteMovies);
+    const favMovie = movie;
+    const newFavList = Object.assign({ [favMovie]: [user.username] });
+    setFavoriteMovies([...favoriteMovies, newFavList]);
+    saveFavoriteMovies([...favoriteMovies, newFavList]);
   };
 
-  const removeFavoriteMovie = (url) => {
-    const newFavList = favoriteMovies.movieName.filter((item) => item !== url);
+  const removeFavoriteMovie = (movie) => {
+    const newFavList = favoriteMovies.filter(
+      (item) => Object.keys(item)[0] !== movie
+    );
     setFavoriteMovies(newFavList);
     saveFavoriteMovies(newFavList);
   };
@@ -56,8 +52,6 @@ function RouteComponent(props) {
     saveUser("");
     window.location.reload();
   };
-
-  console.log(favoriteMovies);
 
   return (
     <BrowserRouter>

@@ -35,6 +35,8 @@ function MovieList(props) {
       genre: "Horror",
     },
   ];
+
+  console.log(props.favoriteMovies);
   return (
     <>
       <div className="container">
@@ -43,12 +45,17 @@ function MovieList(props) {
             <div key={movie.title} className="listItem">
               <li className="movieName">{movie.title}</li>
               <div
-                  className="favContainer"
-                  onClick={() => props.sendFavoriteMovie(movie.title)}
-                >
-                  <Favourite color="gray" />
-                </div>
-              {/* {props.favoriteMovies.movieName.includes(movie.title) ? (
+                className="favContainer"
+                onClick={() => props.sendFavoriteMovie(movie.title)}
+              >
+                <Favourite color="gray" />
+              </div>
+              {props.favoriteMovies.map((item) =>
+                console.log(Object.keys(item), ":", movie.title)
+              )}
+              {props.favoriteMovies.map(
+                (item) => Object.keys(item)[0] === movie.title
+              ) ? (
                 <div
                   className="favContainer"
                   onClick={() => props.removeFavoriteMovie(movie.title)}
@@ -62,8 +69,10 @@ function MovieList(props) {
                 >
                   <Favourite color="gray" />
                 </div>
-              )} */}
-              <div className="count">{props.favoriteMovies.length}</div>
+              )}
+              {props.favoriteMovies.map((item) => (
+                <div className="count">{Object.values(item).length}</div>
+              ))}
             </div>
           ))}
         </div>
