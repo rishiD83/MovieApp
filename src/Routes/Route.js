@@ -3,11 +3,43 @@ import { BrowserRouter } from "react-router-dom";
 import Login from "../Pages/Login/Login";
 import MovieList from "../Pages/MovieList/MovieList";
 import { Button } from "@material-ui/core";
+import Favourite from "../Common/Favourite";
 
 function RouteComponent(props) {
   const [user, setUser] = useState({ name: "", username: "" });
   const [error, setError] = useState("");
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  let moviesList;
+
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  var movies = [
+    {
+      title: "Forest Gump",
+      likes: [],
+    },
+    {
+      title: "Harry Potter",
+      likes: [],
+    },
+    {
+      title: "Titanic",
+      likes: [],
+    },
+    {
+      title: "Best Worst Movie",
+      likes: [],
+    },
+    {
+      title: "Troll 2",
+      likes: [],
+    },
+  ];
+  if (localStorage.getItem("favoriteMovies") !== null) {
+    moviesList = JSON.parse(localStorage.getItem("favoriteMovies"));
+  } else {
+    moviesList = movies;
+    localStorage.setItem("favoriteMovies", JSON.stringify(movies));
+  }
   const users = [
     { name: "Arnold", username: "arnold", password: "arnold123" },
     { name: "John", username: "john", password: "john123" },
@@ -20,22 +52,31 @@ function RouteComponent(props) {
     localStorage.setItem("currentUser", JSON.stringify(user));
   };
 
-  const saveFavoriteMovies = (items) => {
-    localStorage.setItem("favouriteMovies", JSON.stringify(items));
+  const saveFavoriteMovies = (index) => {
+    if (localStorage.getItem("favoriteMovies") !== null) {
+      let favMovies = localStorage.getItem("favoriteMovies");
+      favMovies = JSON.parse(favMovies);
+      let value = favMovies[index];
+      let valueIndex = value.likes.indexOf(currentUser);
+      if (valueIndex > -1) {
+        value.likes.splice(valueIndex, 1);
+      } else {
+        value.likes.push(currentUser);
+      }
+      localStorage.setItem("favoriteMovies", JSON.stringify(favMovies));
+      window.location.reload();
+    }
   };
 
-  const getFavoriteMovie = (movie) => {
-    const favMovie = movie;
-    const newFavList = Object.assign({ [favMovie]: [user.username] });
-    setFavoriteMovies([...favoriteMovies, newFavList]);
-    saveFavoriteMovies([...favoriteMovies, newFavList]);
+  const getFavoriteMovie = (index) => {
+    console.log(index);
+    saveFavoriteMovies(index);
   };
 
   const removeFavoriteMovie = (movie) => {
-    const newFavList = favoriteMovies.filter(
+    const newFavList = moviesList.filter(
       (item) => Object.keys(item)[0] !== movie
     );
-    setFavoriteMovies(newFavList);
     saveFavoriteMovies(newFavList);
   };
 
@@ -48,24 +89,26 @@ function RouteComponent(props) {
     saveUser(details.username);
   };
   const logout = () => {
-    setUser({ name: "", id: "" });
-    saveUser("");
+    localStorage.removeItem("currentUser");
     window.location.reload();
   };
 
   return (
     <BrowserRouter>
       <div className="navigation">
-        {user.username !== "" && (
-          <Button variant="outlined" onClick={logout}>
-            Logout
-          </Button>
+        {currentUser !== null && (
+          <>
+            <Button variant="outlined" onClick={logout}>
+              Logout : {currentUser}
+            </Button>
+          </>
         )}
       </div>
-      {user.username !== "" ? (
+      {currentUser !== null ? (
         <MovieList
+          user={currentUser}
           sendFavoriteMovie={getFavoriteMovie}
-          favoriteMovies={favoriteMovies}
+          favoriteMovies={moviesList}
           removeFavoriteMovie={removeFavoriteMovie}
         />
       ) : (
