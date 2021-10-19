@@ -6,33 +6,23 @@ function MovieList(props) {
   var movies = [
     {
       title: "Forest Gump",
-      yearReleased: 1994,
-      director: "Robert Zemeckis",
-      genre: "Comedy",
+      likes: [],
     },
     {
       title: "Harry Potter",
-      yearReleased: 2001,
-      director: "Mike Newell",
-      genre: "Fantasy Fiction",
+      likes: [],
     },
     {
       title: "Titanic",
-      yearReleased: 1998,
-      director: "James Cameron",
-      genre: "Romance",
+      likes: [],
     },
     {
       title: "Best Worst Movie",
-      yearReleased: 2009,
-      director: "Michael Stephen",
-      genre: "Comedy",
+      likes: [],
     },
     {
       title: "Troll 2",
-      yearReleased: 2003,
-      director: "Shawn Black",
-      genre: "Horror",
+      likes: [],
     },
   ];
 
