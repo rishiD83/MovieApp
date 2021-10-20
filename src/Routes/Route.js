@@ -3,13 +3,11 @@ import { BrowserRouter } from "react-router-dom";
 import Login from "../Pages/Login/Login";
 import MovieList from "../Pages/MovieList/MovieList";
 import { Button } from "@material-ui/core";
-import Favourite from "../Common/Favourite";
 
 function RouteComponent(props) {
-  const [user, setUser] = useState({ name: "", username: "" });
   const [error, setError] = useState("");
-  let moviesList;
 
+  let moviesList;
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   var movies = [
@@ -57,6 +55,7 @@ function RouteComponent(props) {
       let favMovies = localStorage.getItem("favoriteMovies");
       favMovies = JSON.parse(favMovies);
       let value = favMovies[index];
+
       let valueIndex = value.likes.indexOf(currentUser);
       if (valueIndex > -1) {
         value.likes.splice(valueIndex, 1);
@@ -69,7 +68,6 @@ function RouteComponent(props) {
   };
 
   const getFavoriteMovie = (index) => {
-    console.log(index);
     saveFavoriteMovies(index);
   };
 
@@ -83,7 +81,7 @@ function RouteComponent(props) {
   const login = (details) => {
     users.map((user) =>
       user.username === details.username && user.password === details.password
-        ? setUser({ name: user.name, username: details.username })
+        ? null
         : setError("Invalid Credentials")
     );
     saveUser(details.username);
